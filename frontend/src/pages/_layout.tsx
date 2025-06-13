@@ -1,15 +1,9 @@
 import { Outlet } from 'react-router-dom'
-import Navbar from '../components/Site/Navbar'
-// import Footer from '../../components/Site/Footer'
 
-export default function SiteLayout() {
+export default function RootLayout() {
   return (
-    <div>
-      <Navbar />
-      <main>
-        <Outlet />
-      </main>
-      {/* <Footer /> */}
+    <div className="min-h-screen">
+      <Outlet />
     </div>
   )
 }
