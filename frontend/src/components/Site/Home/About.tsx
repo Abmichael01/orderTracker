@@ -26,7 +26,7 @@ export default function AboutSection() {
             {/* Stats or Features */}
             <div className="grid grid-cols-2 gap-6 pt-8">
               <div className="text-center lg:text-left">
-                <div className="text-3xl font-bold text-primary mb-2">15+</div>
+                <div className="text-3xl font-bold text-primary mb-2">11+</div>
                 <div className="text-sm text-muted-foreground">Years Experience</div>
               </div>
               <div className="text-center lg:text-left">
