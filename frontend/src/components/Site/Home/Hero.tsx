@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import SectionPadding from '../../../layouts/SectionPadding';
+import { useNavigate } from 'react-router-dom';
 
 export default function Hero() {
   const [trackingCode, setTrackingCode] = useState('');
+  const navigate = useNavigate()
 
   return (
     <SectionPadding className="relative h-[500px]">
@@ -26,7 +28,7 @@ export default function Hero() {
                 placeholder="Enter tracking number..."
                 className="flex-1 px-4 py-3 text-gray-900 bg-white border-0 rounded-l-md sm:rounded-r-none rounded-r-md focus:outline-none focus:ring-2 focus:ring-white/50 placeholder-gray-500"
               />
-              <button className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 font-semibold rounded-r-md sm:rounded-l-none rounded-l-md transition-colors whitespace-nowrap">
+              <button onClick={() => navigate(`/?trackingId=${trackingCode}`)} className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 font-semibold rounded-r-md sm:rounded-l-none rounded-l-md transition-colors whitespace-nowrap">
                 Track Now
               </button>
             </div>
