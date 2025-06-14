@@ -127,7 +127,7 @@ export default function TrackingComponent() {
     fromStatus: string,
     toStatus: string,
     currentStatus: string
-  ) => {
+  ): string => {
     const statusOrder = ["Processing", "In Transit", "Delivered"];
     const currentIndex = statusOrder.indexOf(currentStatus);
     const toIndex = statusOrder.indexOf(toStatus);
