@@ -124,7 +124,7 @@ export default function TrackingComponent() {
   };
 
   const getProgressLine = (
-    fromStatus: string,
+    _fromStatus: string,
     toStatus: string,
     currentStatus: string
   ): string => {
