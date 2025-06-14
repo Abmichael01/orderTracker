@@ -220,7 +220,7 @@ export default function TrackingComponent() {
                 d="M15 19l-7-7 7-7"
               />
             </svg>
-            Back to Dashboard
+            Back to Home
           </button>
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 bg-green-600 rounded-full animate-pulse"></div>
