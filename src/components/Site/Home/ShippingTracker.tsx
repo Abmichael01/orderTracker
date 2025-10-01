@@ -16,6 +16,7 @@ interface TrackingData {
   currentStatus: "processing" | "in_transit" | "delivered";
   isTestShipment: boolean;
   estimatedDelivery: string;
+  arrivalTime: string;
   name: string;
   email: string;
   weight: string;
@@ -44,6 +45,19 @@ export default function TrackingComponent() {
 
   useEffect(() => {
     setFields(data?.form_fields as FormField[])
+    
+    // Find arrival time field by looking for fields containing "arrival" or "arrival_time"
+    const findArrivalTime = () => {
+      if (!data?.form_fields) return "Not specified";
+      
+      const arrivalField = (data.form_fields as FormField[]).find(field => 
+        field.id.toLowerCase().includes("arrival") || 
+        field.id.toLowerCase().includes("arrival_time")
+      );
+      
+      return arrivalField ? String(arrivalField.currentValue || arrivalField.defaultValue || "Not specified") : "Not specified";
+    };
+    
     setTrackingData({
       trackingId: data?.tracking_id as string,
       package: getFieldValue("Package_content") as string,
@@ -53,6 +67,7 @@ export default function TrackingComponent() {
       currentStatus: data?.status as  "processing" | "in_transit" | "delivered",
       isTestShipment: data?.test as boolean,
       estimatedDelivery: "Nil",
+      arrivalTime: findArrivalTime(),
       name: getFieldValue("Recipient_name") as string,
       weight: getFieldValue("Package_weight") as string,
       email: getFieldValue("Recipient_email") as string,
@@ -429,6 +444,14 @@ export default function TrackingComponent() {
                     </span>
                     <span className="text-foreground font-medium text-sm">
                       {trackingData.weight}
+                    </span>
+                  </div>
+                  <div className="flex justify-between py-2 border-b border-border">
+                    <span className="text-muted-foreground text-sm">
+                      Arrival Time
+                    </span>
+                    <span className="text-foreground font-medium text-sm">
+                      {trackingData.arrivalTime}
                     </span>
                   </div>
                   
