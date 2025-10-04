@@ -46,31 +46,43 @@ export default function TrackingComponent() {
   useEffect(() => {
     setFields(data?.form_fields as FormField[])
     
-    // Find arrival time field by looking for fields containing "arrival" or "arrival_time"
-    const findArrivalTime = () => {
-      if (!data?.form_fields) return "Not specified";
+    // Helper function to get value from field with specific tracking role only (no fallbacks)
+    const getValueByTrackingRole = (role: string): string => {
+      if (!data?.form_fields) return "";
       
-      const arrivalField = (data.form_fields as FormField[]).find(field => 
-        field.id.toLowerCase().includes("arrival") || 
-        field.id.toLowerCase().includes("arrival_time")
+      // Find a field with the specified tracking role
+      const fieldByRole = (data.form_fields as FormField[]).find(field => 
+        field.trackingRole === role
       );
       
-      return arrivalField ? String(arrivalField.currentValue || arrivalField.defaultValue || "Not specified") : "Not specified";
+      // Return the value if found, otherwise empty string
+      return fieldByRole 
+        ? String(fieldByRole.currentValue || fieldByRole.defaultValue || "") 
+        : "";
     };
+    
+    // Use tracking roles exclusively to get field values
+    // This enforces the use of the .track_* extensions in SVG templates
+    
+    // Get arrival time first, as it will be used for both arrival time and estimated delivery
+    const arrivalTimeValue = getValueByTrackingRole("arrival") || "Not specified";
+    
+    // Get estimated delivery, falling back to arrival time if not found
+    const estimatedDeliveryValue = getValueByTrackingRole("arrival") || arrivalTimeValue;
     
     setTrackingData({
       trackingId: data?.tracking_id as string,
-      package: getFieldValue("Package_content") as string,
+      package: getValueByTrackingRole("package") || "Not specified",
       status: data?.status as string,
-      shipmentDate: getFieldValue("Invoice_date") as string,
-      destination: getFieldValue("Recipient_address") as string,
+      shipmentDate: getValueByTrackingRole("shipment_date") || "Not specified",
+      destination: getValueByTrackingRole("destination") || "Not specified",
       currentStatus: data?.status as  "processing" | "in_transit" | "delivered",
       isTestShipment: data?.test as boolean,
-      estimatedDelivery: "Nil",
-      arrivalTime: findArrivalTime(),
-      name: getFieldValue("Recipient_name") as string,
-      weight: getFieldValue("Package_weight") as string,
-      email: getFieldValue("Recipient_email") as string,
+      estimatedDelivery: estimatedDeliveryValue,
+      arrivalTime: arrivalTimeValue,
+      name: getValueByTrackingRole("name") || "Not specified",
+      weight: getValueByTrackingRole("weight") || "Not specified",
+      email: getValueByTrackingRole("email") || "Not specified",
     });
   }, [data, setFields, setTrackingData, getFieldValue]);
 
