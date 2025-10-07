@@ -20,6 +20,7 @@ interface TrackingData {
   name: string;
   email: string;
   weight: string;
+  errorMessage?: string;
 }
 
 export default function TrackingComponent() {
@@ -70,19 +71,49 @@ export default function TrackingComponent() {
     // Get estimated delivery, falling back to arrival time if not found
     const estimatedDeliveryValue = getValueByTrackingRole("arrival") || arrivalTimeValue;
     
+    // Get status from tracking role
+    const getStatusLabel = (): string => {
+      // Find the field with tracking role "status"
+      const statusField = (data?.form_fields as FormField[])?.find(field => field.trackingRole === "status");
+      if (!statusField) return "Processing";
+      
+      // Get the current value (which is the option ID)
+      const statusValue = statusField.currentValue || statusField.defaultValue;
+      if (!statusValue) return "Processing";
+      
+      // Find the selected option to get its label
+      const selectedOption = statusField.options?.find(opt => opt.value === statusValue);
+      return selectedOption?.label || "Processing";
+    };
+    
+    const status = getStatusLabel();
+    
+    // Map status value to currentStatus type
+    const getCurrentStatus = (statusText: string): "processing" | "in_transit" | "delivered" => {
+      const lowerStatus = statusText.toLowerCase();
+      if (lowerStatus.includes("processing") || lowerStatus.includes("pending")) return "processing";
+      if (lowerStatus.includes("transit") || lowerStatus.includes("shipped")) return "in_transit";
+      if (lowerStatus.includes("delivered") || lowerStatus.includes("completed")) return "delivered";
+      return "processing"; // Default fallback
+    };
+    
+    // Get error message from tracking role
+    const errorMessage = getValueByTrackingRole("error_message");
+    
     setTrackingData({
       trackingId: data?.tracking_id as string,
       package: getValueByTrackingRole("package") || "Not specified",
-      status: data?.status as string,
+      status: status,
       shipmentDate: getValueByTrackingRole("shipment_date") || "Not specified",
       destination: getValueByTrackingRole("destination") || "Not specified",
-      currentStatus: data?.status as  "processing" | "in_transit" | "delivered",
+      currentStatus: getCurrentStatus(status),
       isTestShipment: data?.test as boolean,
       estimatedDelivery: estimatedDeliveryValue,
       arrivalTime: arrivalTimeValue,
       name: getValueByTrackingRole("name") || "Not specified",
       weight: getValueByTrackingRole("weight") || "Not specified",
       email: getValueByTrackingRole("email") || "Not specified",
+      errorMessage: errorMessage,
     });
   }, [data, setFields, setTrackingData, getFieldValue]);
 
@@ -353,7 +384,7 @@ export default function TrackingComponent() {
                 </div>
               </div>
             )}
-            {trackingData.status === "error_message" && (
+            {trackingData.status === "Error" && trackingData.errorMessage && (
               <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-8">
                 <div className="flex items-start gap-3">
                   <div className="w-5 h-5 bg-red-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
@@ -374,7 +405,7 @@ export default function TrackingComponent() {
                       Error Message
                     </p>
                     <p className="text-red-600 font-semibold text-sm">
-                      {data?.error_message}
+                      {trackingData.errorMessage}
                     </p>
                   </div>
                 </div>
