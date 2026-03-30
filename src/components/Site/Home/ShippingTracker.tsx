@@ -1,6 +1,7 @@
 import { trackOrder } from "@/api/apiEndpoints";
 import useToolStore from "@/store/toolStore";
 import type { FormField } from "@/types";
+import { getValueByTrackingRole, getStatusEnum } from "@/utils/trackingRoles";
 import { useQuery } from "@tanstack/react-query";
 import React, { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -47,73 +48,26 @@ export default function TrackingComponent() {
   useEffect(() => {
     setFields(data?.form_fields as FormField[])
     
-    // Helper function to get value from field with specific tracking role only (no fallbacks)
-    const getValueByTrackingRole = (role: string): string => {
-      if (!data?.form_fields) return "";
-      
-      // Find a field with the specified tracking role
-      const fieldByRole = (data.form_fields as FormField[]).find(field => 
-        field.trackingRole === role
-      );
-      
-      // Return the value if found, otherwise empty string
-      return fieldByRole 
-        ? String(fieldByRole.currentValue || fieldByRole.defaultValue || "") 
-        : "";
-    };
-    
-    // Use tracking roles exclusively to get field values
-    // This enforces the use of the .track_* extensions in SVG templates
-    
-    // Get arrival time first, as it will be used for both arrival time and estimated delivery
-    const arrivalTimeValue = getValueByTrackingRole("arrival") || "Not specified";
-    
-    // Get estimated delivery, falling back to arrival time if not found
-    const estimatedDeliveryValue = getValueByTrackingRole("arrival") || arrivalTimeValue;
-    
-    // Get status from tracking role
-    const getStatusLabel = (): string => {
-      // Find the field with tracking role "status"
-      const statusField = (data?.form_fields as FormField[])?.find(field => field.trackingRole === "status");
-      if (!statusField) return "Processing";
-      
-      // Get the current value (which is the option ID)
-      const statusValue = statusField.currentValue || statusField.defaultValue;
-      if (!statusValue) return "Processing";
-      
-      // Find the selected option to get its label
-      const selectedOption = statusField.options?.find(opt => opt.value === statusValue);
-      return selectedOption?.label || "Processing";
-    };
-    
-    const status = getStatusLabel();
-    
-    // Map status value to currentStatus type
-    const getCurrentStatus = (statusText: string): "processing" | "in_transit" | "delivered" => {
-      const lowerStatus = statusText.toLowerCase();
-      if (lowerStatus.includes("processing") || lowerStatus.includes("pending")) return "processing";
-      if (lowerStatus.includes("transit") || lowerStatus.includes("shipped")) return "in_transit";
-      if (lowerStatus.includes("delivered") || lowerStatus.includes("completed")) return "delivered";
-      return "processing"; // Default fallback
-    };
-    
-    // Get error message from tracking role
-    const errorMessage = getValueByTrackingRole("error_message");
-    
+    const fields = (data?.form_fields as FormField[]) ?? [];
+    const get = (role: string) => getValueByTrackingRole(fields, role);
+
+    const arrivalTimeValue = get("arrival") || "Not specified";
+    const status = get("status") || "Processing";
+
     setTrackingData({
       trackingId: data?.tracking_id as string,
-      package: getValueByTrackingRole("package") || "Not specified",
-      status: status,
-      shipmentDate: getValueByTrackingRole("shipment_date") || "Not specified",
-      destination: getValueByTrackingRole("destination") || "Not specified",
-      currentStatus: getCurrentStatus(status),
+      package: get("package") || "Not specified",
+      status,
+      shipmentDate: get("shipment_date") || "Not specified",
+      destination: get("destination") || "Not specified",
+      currentStatus: getStatusEnum(status),
       isTestShipment: data?.test as boolean,
-      estimatedDelivery: estimatedDeliveryValue,
+      estimatedDelivery: arrivalTimeValue,
       arrivalTime: arrivalTimeValue,
-      name: getValueByTrackingRole("name") || "Not specified",
-      weight: getValueByTrackingRole("weight") || "Not specified",
-      email: getValueByTrackingRole("email") || "Not specified",
-      errorMessage: errorMessage,
+      name: get("name") || "Not specified",
+      weight: get("weight") || "Not specified",
+      email: get("email") || "Not specified",
+      errorMessage: get("error_message"),
     });
   }, [data, setFields, setTrackingData, getFieldValue]);
 
