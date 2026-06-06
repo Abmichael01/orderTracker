@@ -59,7 +59,7 @@ export default function Services() {
   ];
 
   return (
-    <SectionPadding className="py-16 bg-muted/30">
+    <SectionPadding id="services" className="py-16 bg-muted/30 scroll-mt-6">
         {/* Header */}
         <div className="text-center mb-12">
           <h2 className="text-3xl lg:text-4xl font-bold text-primary mb-4">

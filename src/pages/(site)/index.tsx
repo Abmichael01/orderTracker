@@ -3,6 +3,7 @@ import AboutSection from "../../components/Site/Home/About";
 import ContactForm from "../../components/Site/Home/Contact";
 import FAQSection from "../../components/Site/Home/FAQ";
 import Hero from "../../components/Site/Home/Hero";
+import LogoMarquee from "../../components/Site/Home/LogoMarquee";
 import TeamSection from "../../components/Site/Home/OurStaffs";
 import PricingSection from "../../components/Site/Home/Pricing";
 import Services from "../../components/Site/Home/Services";
@@ -19,6 +20,7 @@ export default function Home() {
       {!id && (
         <>
           <Hero />
+          <LogoMarquee />
           <Services />
           <AboutSection />
           <StatsSection />

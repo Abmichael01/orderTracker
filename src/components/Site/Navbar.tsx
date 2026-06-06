@@ -6,12 +6,12 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   
   const navLinks = [
-    { href: "/", label: "Home" },
-    { href: "/services", label: "Services" },
-    { href: "/about", label: "About Us" },
-    { href: "/why-us", label: "Why Us" },
-    { href: "/testimonials", label: "Testimonials" },
-    { href: "/contact", label: "Contact" },
+    { href: "/#home", label: "Home" },
+    { href: "/#services", label: "Services" },
+    { href: "/#about", label: "About Us" },
+    { href: "/#why-us", label: "Why Us" },
+    { href: "/#faq", label: "FAQ" },
+    { href: "/#contact", label: "Contact" },
   ];
 
   return (

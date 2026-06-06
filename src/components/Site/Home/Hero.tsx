@@ -7,7 +7,7 @@ export default function Hero() {
   const navigate = useNavigate()
 
   return (
-    <SectionPadding className="relative h-[500px]">
+    <SectionPadding id="home" className="relative h-[500px] scroll-mt-6">
       <img src="/sea2.jpg" alt="" className="absolute inset-0 w-full h-full object-cover" />
       <div className="absolute inset-0 bg-gradient-to-r from-primary/90 to-primary/50" />
       
@@ -15,9 +15,12 @@ export default function Hero() {
       <div className="relative z-1 h-full flex items-center">
         <div className=" w-full">
           <div className="max-w-2xl">
-            <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
-              EXPLORE PREMIUM SHIPPING OPTIONS FOR YOUR CARGO
+            <h1 className="text-4xl lg:text-5xl font-semibold text-white mb-6 leading-tight">
+              TRACK DIFFERENT SHIPMENTS GLOBALLY IN REAL TIME
             </h1>
+            <p className="mb-8 max-w-xl text-lg font-semibold leading-relaxed text-white/90">
+              Follow parcels, freight, cargo, and delivery updates across global carriers from one tracking number.
+            </p>
             
             {/* Tracking Form */}
             <div className="flex flex-col sm:flex-row gap-0 max-w-md">

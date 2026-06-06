@@ -97,7 +97,7 @@ export default function FAQSection(): React.JSX.Element {
   };
 
   return (
-    <SectionPadding className="bg-white py-20 px-4 border-b">
+    <SectionPadding id="faq" className="bg-white py-20 px-4 border-b scroll-mt-6">
       <div className="">
         {/* Header */}
         <div className="text-center mb-16">

@@ -2,7 +2,7 @@ import SectionPadding from "../../../layouts/SectionPadding";
 
 export default function AboutSection() {
   return (
-    <SectionPadding className="py-16 bg-background">
+    <SectionPadding id="about" className="py-16 bg-background scroll-mt-6">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Content */}
           <div className="space-y-6">

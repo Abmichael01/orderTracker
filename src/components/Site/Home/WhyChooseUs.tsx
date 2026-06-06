@@ -38,7 +38,7 @@ export default function WhyChooseUsSection(): React.JSX.Element {
   ];
 
   return (
-    <SectionPadding className="bg-white py-30 ">
+    <SectionPadding id="why-us" className="bg-white py-30 scroll-mt-6">
       <div className="">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left Content */}
