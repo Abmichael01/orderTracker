@@ -56,11 +56,11 @@ export default function TeamSection(): React.JSX.Element {
   ];
 
   return (
-    <SectionPadding className="bg-white py-30">
-      <div className="">
+    <section className="w-full bg-white">
+      <SectionPadding className="py-30">
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4 tracking-wide">
+          <h2 className="mb-4 text-4xl font-medium tracking-wide text-gray-950 md:text-5xl">
             OUR STAFF
           </h2>
           <p className="text-gray-500 text-lg max-w-2xl mx-auto">
@@ -81,7 +81,7 @@ export default function TeamSection(): React.JSX.Element {
               </div>
 
               {/* Name */}
-              <h3 className="text-xl font-bold text-gray-900 mb-2">
+              <h3 className="mb-2 text-xl font-medium text-gray-900">
                 {member.name}
               </h3>
 
@@ -97,7 +97,7 @@ export default function TeamSection(): React.JSX.Element {
             </div>
           ))}
         </div>
-      </div>
-    </SectionPadding>
+      </SectionPadding>
+    </section>
   );
 }

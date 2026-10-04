@@ -2,11 +2,12 @@ import SectionPadding from "../../../layouts/SectionPadding";
 
 export default function AboutSection() {
   return (
-    <SectionPadding id="about" className="py-16 bg-background scroll-mt-6">
+    <section id="about" className="w-full scroll-mt-6 bg-background">
+      <SectionPadding className="py-16">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Content */}
           <div className="space-y-6">
-            <h2 className="text-3xl lg:text-4xl font-bold text-primary mb-6">
+            <h2 className="mb-6 text-3xl font-medium text-gray-950 lg:text-4xl">
               ABOUT US
             </h2>
             
@@ -25,11 +26,11 @@ export default function AboutSection() {
             {/* Stats or Features */}
             <div className="grid grid-cols-2 gap-6 pt-8">
               <div className="text-center lg:text-left">
-                <div className="text-3xl font-bold text-primary mb-2">One ID</div>
+                <div className="mb-2 text-3xl font-medium text-gray-950">One ID</div>
                 <div className="text-sm text-muted-foreground">Tracking and support</div>
               </div>
               <div className="text-center lg:text-left">
-                <div className="text-3xl font-bold text-primary mb-2">24/7</div>
+                <div className="mb-2 text-3xl font-medium text-gray-950">24/7</div>
                 <div className="text-sm text-muted-foreground">Customer Support</div>
               </div>
             </div>
@@ -50,7 +51,7 @@ export default function AboutSection() {
               />
               
               {/* Overlay with decorative elements */}
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
               
               {/* Floating badge */}
               <div className="absolute top-6 left-6 bg-card/90 backdrop-blur-sm rounded-lg px-4 py-2 shadow-lg">
@@ -63,17 +64,18 @@ export default function AboutSection() {
               {/* Bottom stats card */}
               <div className="absolute bottom-6 right-6 bg-card/90 backdrop-blur-sm rounded-lg p-4 shadow-lg">
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-primary">Direct</div>
+                  <div className="text-2xl font-medium text-gray-950">Direct</div>
                   <div className="text-xs text-muted-foreground">Support routing</div>
                 </div>
               </div>
             </div>
 
             {/* Decorative elements */}
-            <div className="absolute -top-4 -right-4 w-24 h-24 bg-primary/10 rounded-full blur-xl" />
-            <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-secondary/10 rounded-full blur-xl" />
+            <div className="absolute -top-4 -right-4 w-24 h-24 rounded-full bg-slate-200/50 blur-xl" />
+            <div className="absolute -bottom-4 -left-4 w-32 h-32 rounded-full bg-slate-200/50 blur-xl" />
           </div>
         </div>
-    </SectionPadding>
+      </SectionPadding>
+    </section>
   );
 }

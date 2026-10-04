@@ -7,8 +7,8 @@ const shippingLogos = Array.from({ length: 9 }, (_, index) => ({
 
 export default function LogoMarquee() {
   return (
-    <SectionPadding className="border-y border-border bg-background py-8 sm:py-10">
-      <div className="mx-auto max-w-7xl">
+    <section className="w-full border-y border-border bg-background">
+      <SectionPadding className="py-8 sm:py-10">
         <p className="mb-6 text-center text-sm font-semibold uppercase text-muted-foreground">
           Logistics company
         </p>
@@ -40,7 +40,7 @@ export default function LogoMarquee() {
             </div>
           </div>
         </div>
-      </div>
-    </SectionPadding>
+      </SectionPadding>
+    </section>
   );
 }

@@ -4,7 +4,10 @@ import ContactForm from "../../components/Site/Home/Contact";
 import FAQSection from "../../components/Site/Home/FAQ";
 import Hero from "../../components/Site/Home/Hero";
 import LogoMarquee from "../../components/Site/Home/LogoMarquee";
+import TeamSection from "../../components/Site/Home/OurStaffs";
+import PricingSection from "../../components/Site/Home/Pricing";
 import Services from "../../components/Site/Home/Services";
+import StatsSection from "../../components/Site/Home/Stats";
 import WhyChooseUsSection from "../../components/Site/Home/WhyChooseUs";
 import TrackingComponent from "../../components/Site/Home/ShippingTracker";
 
@@ -20,6 +23,9 @@ export default function Home() {
           <LogoMarquee />
           <Services />
           <AboutSection />
+          <StatsSection />
+          <TeamSection />
+          <PricingSection />
           <FAQSection />
           <WhyChooseUsSection />
           <ContactForm />

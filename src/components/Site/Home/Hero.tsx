@@ -7,13 +7,12 @@ export default function Hero() {
   const navigate = useNavigate()
 
   return (
-    <SectionPadding id="home" className="relative h-[500px] scroll-mt-6">
+    <section id="home" className="relative h-[500px] w-full scroll-mt-6">
       <img src="/sea2.jpg" alt="" className="absolute inset-0 w-full h-full object-cover" />
       <div className="absolute inset-0 bg-gradient-to-r from-primary/90 to-primary/50" />
-      
-      {/* Content Overlay */}
-      <div className="relative z-1 h-full flex items-center">
-        <div className=" w-full">
+
+      <SectionPadding className="relative z-10 h-full">
+        <div className="flex h-full w-full items-center">
           <div className="max-w-2xl">
             <h1 className="text-4xl lg:text-5xl font-semibold text-white mb-6 leading-tight">
               TRACK DIFFERENT SHIPMENTS GLOBALLY IN REAL TIME
@@ -38,7 +37,7 @@ export default function Hero() {
             </form>
           </div>
         </div>
-      </div>
-    </SectionPadding>
+      </SectionPadding>
+    </section>
   );
 }

@@ -51,7 +51,7 @@ const StatCard: React.FC<StatCardProps> = ({ endValue, suffix, label, duration =
 
   return (
     <div ref={cardRef} className="text-center space-y-3">
-      <div className="text-5xl md:text-6xl font-bold text-primary mb-2">
+      <div className="mb-2 text-5xl font-medium text-gray-950 md:text-6xl">
         {count.toLocaleString()}{suffix}
       </div>
       <div className="text-gray-500 text-lg font-medium">
@@ -77,7 +77,7 @@ export default function StatsSection(): React.JSX.Element {
 
   return (
     <section className="bg-gray-50 py-25 px-4">
-      <div className="max-w-7xl mx-auto">
+      <div className="mx-auto max-w-8xl">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-8">
           {stats.map((stat, index) => (
             <StatCard

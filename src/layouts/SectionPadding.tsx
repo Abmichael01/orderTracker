@@ -8,6 +8,9 @@ const SectionPadding: React.FC<SectionPaddingProps> = ({ children, className, ..
     return (
         <div 
             className={`
+                mx-auto
+                w-full
+                max-w-8xl
                 px-4 
                 sm:px-6 
                 md:px-12 

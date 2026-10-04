@@ -38,16 +38,16 @@ export default function WhyChooseUsSection(): React.JSX.Element {
   ];
 
   return (
-    <SectionPadding id="why-us" className="bg-white py-30 scroll-mt-6">
-      <div className="">
+    <section id="why-us" className="w-full scroll-mt-6 bg-white">
+      <SectionPadding className="py-30">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left Content */}
           <div className="order-2 lg:order-1">
             <div className="mb-8">
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+              <h2 className="mb-6 text-4xl font-medium leading-tight text-gray-900 md:text-5xl">
                 WHY CHOOSE US
               </h2>
-              <h3 className="text-2xl md:text-3xl font-bold text-primary mb-6">
+              <h3 className="mb-6 text-2xl font-medium text-gray-800 md:text-3xl">
                 TRACKING THAT STAYS CONNECTED
               </h3>
               <p className="text-gray-600 text-lg leading-relaxed">
@@ -63,12 +63,12 @@ export default function WhyChooseUsSection(): React.JSX.Element {
                   className="flex items-center space-x-4 p-4 rounded-lg hover:bg-gray-50 transition-colors duration-200 group"
                 >
                   <div className="flex-shrink-0">
-                    <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-200">
-                      <Check className="w-5 h-5 text-primary" />
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-slate-100 transition-colors duration-200 group-hover:bg-slate-200">
+                      <Check className="h-5 w-5 text-slate-700" />
                     </div>
                   </div>
                   <div className="flex items-center space-x-3">
-                    <div className="text-primary group-hover:text-primary/80 transition-colors duration-200">
+                    <div className="text-slate-600 transition-colors duration-200 group-hover:text-slate-900">
                       {feature.icon}
                     </div>
                     <span className="text-gray-700 font-medium text-lg">
@@ -90,7 +90,7 @@ export default function WhyChooseUsSection(): React.JSX.Element {
             <img src="/sea.jpg" alt="" className="w-full h-full" />
           </div>
         </div>
-      </div>
-    </SectionPadding>
+      </SectionPadding>
+    </section>
   );
 }

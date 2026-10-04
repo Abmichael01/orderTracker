@@ -56,11 +56,11 @@ export default function PricingSection(): React.JSX.Element {
   ];
 
   return (
-    <SectionPadding className="bg-gray-50 py-30">
-      <div className="">
+    <section className="w-full bg-gray-50">
+      <SectionPadding className="py-30">
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4 tracking-wide">
+          <h2 className="mb-4 text-4xl font-medium tracking-wide text-gray-950 md:text-5xl">
             OUR PRICING PLANS
           </h2>
           <p className="text-gray-500 text-lg max-w-3xl mx-auto">
@@ -74,13 +74,13 @@ export default function PricingSection(): React.JSX.Element {
             <div
               key={plan.id}
               className={`bg-white rounded-lg shadow-lg p-8 relative ${
-                plan.isPopular ? 'ring-2 ring-primary transform scale-105' : ''
+                plan.isPopular ? 'ring-2 ring-slate-300 transform scale-105' : ''
               }`}
             >
               {/* Popular Badge */}
               {plan.isPopular && (
                 <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                  <span className="bg-primary text-white px-4 py-1 rounded-full text-sm font-medium">
+                  <span className="rounded-md bg-slate-800 px-4 py-1 text-sm font-medium text-white">
                     Most Popular
                   </span>
                 </div>
@@ -88,13 +88,13 @@ export default function PricingSection(): React.JSX.Element {
 
               {/* Plan Name */}
               <div className="text-center mb-6">
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                <h3 className="mb-4 text-2xl font-medium text-gray-900">
                   {plan.name}
                 </h3>
                 
                 {/* Price */}
                 <div className="mb-4">
-                  <span className="text-4xl font-bold text-primary">
+                  <span className="text-4xl font-medium text-gray-950">
                     ${plan.price}
                   </span>
                   <span className="text-gray-500 ml-2">
@@ -108,7 +108,7 @@ export default function PricingSection(): React.JSX.Element {
                 <ul className="space-y-4">
                   {plan.features.map((feature, index) => (
                     <li key={index} className="flex items-start space-x-3">
-                      <Check className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
+                      <Check className="mt-0.5 h-5 w-5 flex-shrink-0 text-slate-500" />
                       <span className="text-gray-600 text-sm leading-relaxed">
                         {feature}
                       </span>
@@ -132,7 +132,7 @@ export default function PricingSection(): React.JSX.Element {
             </div>
           ))}
         </div>
-      </div>
-    </SectionPadding>
+      </SectionPadding>
+    </section>
   );
 }

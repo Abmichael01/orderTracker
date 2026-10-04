@@ -258,7 +258,7 @@ export default function TrackingComponent() {
           <div className="bg-gradient-to-r from-green-900 to-green-700 text-primary-foreground p-8">
             <div className="flex gap-5 items-center justify-between mb-6">
               <div className="">
-                <h1 className="text-2xl font-bold">Shipment Tracking</h1>
+                <h1 className="text-2xl font-medium">Shipment Tracking</h1>
                 <p className="text-primary-foreground/80 text-sm">
                   Real-time package monitoring
                 </p>
@@ -326,7 +326,7 @@ export default function TrackingComponent() {
                     </svg>
                   </div>
                   <div>
-                    <p className="text-red-500 font-bold text-sm">
+                    <p className="text-sm font-medium text-red-500">
                       Test Environment
                     </p>
                     <p className="text-red-600 font-semibold text-sm">
@@ -353,7 +353,7 @@ export default function TrackingComponent() {
                     </svg>
                   </div>
                   <div>
-                    <p className="text-red-500 font-bold text-sm">
+                    <p className="text-sm font-medium text-red-500">
                       Error Message
                     </p>
                     <p className="text-red-600 font-semibold text-sm">
@@ -389,7 +389,7 @@ export default function TrackingComponent() {
                         {status.replace("_", " ").toUpperCase()}
                       </span>
                       {currentIndex === index && (
-                        <span className="text-xs text-primary mt-1 font-medium">
+                        <span className="mt-1 text-xs font-medium text-gray-700">
                           Current
                         </span>
                       )}
@@ -456,9 +456,9 @@ export default function TrackingComponent() {
                 <h4 className="font-semibold text-foreground">Destination</h4>
                 <div className="bg-muted/50 rounded-lg p-4">
                   <div className="flex items-start gap-3">
-                    <div className="w-5 h-5 bg-primary/20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                    <div className="mt-1 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-slate-100">
                       <svg
-                        className="w-3 h-3 text-primary"
+                        className="h-3 w-3 text-slate-700"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"

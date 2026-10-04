@@ -18,10 +18,10 @@ export default function Navbar() {
     <nav className="border-b relative bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-[999]">
       <SectionPadding className="flex justify-between items-center py-4 lg:py-10">
         {/* Logo */}
-        <div className="flex items-center gap-2">
-          <img src="/logo.png" alt="" className='size-[30px]' />
-          <span className="font-bold text-xl text-foreground">ParcelFinda</span>
-        </div>
+        <a href="/#home" className="flex items-center gap-2" aria-label="ParcelFinda home">
+          <img src="/logo.png" alt="ParcelFinda" className='size-[30px]' />
+          <span className="text-xl font-medium text-foreground">ParcelFinda</span>
+        </a>
 
         {/* Desktop Navigation */}
         <div className="hidden lg:flex items-center space-x-8">
@@ -31,8 +31,8 @@ export default function Navbar() {
               href={link.href}
               className={`transition-colors font-medium ${
                 index === 0
-                  ? "text-primary"
-                  : "text-foreground hover:text-primary"
+                  ? "font-semibold text-foreground"
+                  : "text-muted-foreground hover:text-foreground"
               }`}
             >
               {link.label}
@@ -82,8 +82,8 @@ export default function Navbar() {
                     onClick={() => setIsMenuOpen(false)}
                     className={`transition-colors font-medium py-2 ${
                       index === 0
-                        ? "text-primary"
-                        : "text-foreground hover:text-primary"
+                        ? "font-semibold text-foreground"
+                        : "text-muted-foreground hover:text-foreground"
                     }`}
                   >
                     {link.label}
