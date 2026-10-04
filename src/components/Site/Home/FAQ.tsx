@@ -16,57 +16,57 @@ export default function FAQSection(): React.JSX.Element {
   const faqItems: FAQItem[] = [
     {
       id: 1,
-      question: "CAN I ACCEPT BOTH PAYPAL AND STRIPE?",
-      answer: "Yes, MyCargoLane supports both PayPal and Stripe as payment options. You can choose the one that best suits your preferences and needs.",
+      question: "WHAT DO I NEED TO TRACK A PARCEL?",
+      answer: "Enter the tracking ID provided with your document or shipment. ParcelFinda uses that ID to retrieve the latest information available for the record.",
       icon: <CreditCard className="w-5 h-5" />,
       category: 'payment'
     },
     {
       id: 2,
-      question: "HOW CAN I CUSTOMIZE MY SHIPPING PREFERENCES?",
-      answer: "You can easily customize your shipping preferences in your account settings. Navigate to the 'Preferences' section, where you can specify delivery options, packaging requirements, and more according to your needs.",
+      question: "WHY IS MY TRACKING ID NOT FOUND?",
+      answer: "Check every letter, number, and dash in the ID. If it still cannot be found, confirm the ID with the person who sent you the parcel document.",
       icon: <Package className="w-5 h-5" />,
       category: 'shipping'
     },
     {
       id: 3,
-      question: "WHAT IS THE AVAILABLE REFUND PERIOD?",
-      answer: "We offer a 30-day refund period from the date of your purchase. If you are unsatisfied with our services, you can request a refund within this timeframe.",
+      question: "CAN SUPPORT CHANGE MY DELIVERY DETAILS?",
+      answer: "Support can review your request and contact the team responsible for the tracking record. Whether a detail can be changed depends on the parcel status.",
       icon: <RefreshCw className="w-5 h-5" />,
       category: 'policy'
     },
     {
       id: 4,
-      question: "WHAT IS YOUR OPENING TIME?",
-      answer: "Our offices are open from Monday to Friday, 9:00 AM to 6:00 PM. Feel free to reach out during these hours for any assistance or inquiries you may have.",
+      question: "HOW WILL SUPPORT REPLY?",
+      answer: "The team will reply to the email address you enter in the support form, so use an inbox you can access.",
       icon: <Clock className="w-5 h-5" />,
       category: 'support'
     },
     {
       id: 5,
       question: "HOW CAN I TRACK MY SHIPMENTS?",
-      answer: "Tracking your shipments is easy! Simply log in to your MyCargoLane account and go to the 'Track Shipment' section. Enter your tracking number, and you'll get real-time updates on your cargo's location and status.",
+      answer: "Enter the tracking ID in the search field on the ParcelFinda home page. You do not need to create an account.",
       icon: <Package className="w-5 h-5" />,
       category: 'shipping'
     },
     {
       id: 6,
-      question: "DO YOU PROVIDE INTERNATIONAL SHIPPING SERVICES?",
-      answer: "Absolutely! MyCargoLane specializes in international shipping services. Whether it's across borders or continents, we ensure your cargo reaches its destination securely and on time.",
+      question: "DOES PARCELFINDA CARRY MY PACKAGE?",
+      answer: "ParcelFinda displays the tracking information attached to your parcel record. The carrier or sender remains responsible for the physical shipment.",
       icon: <Globe className="w-5 h-5" />,
       category: 'shipping'
     },
     {
       id: 7,
       question: "WHAT IS YOUR CUSTOMER SUPPORT AVAILABILITY?",
-      answer: "Our customer support team is available 24/7 to assist you. You can reach out to us through our contact form, email, or phone, and we'll promptly address your inquiries and concerns.",
+      answer: "Submit the contact form with your tracking ID. It will be routed to the owner of that parcel record for review.",
       icon: <Headphones className="w-5 h-5" />,
       category: 'support'
     },
     {
       id: 8,
-      question: "WHAT AVAILABLE IS REFUND PERIOD?",
-      answer: "We offer a 30-day refund period from the date of your purchase. If you are unsatisfied with our services, you can request a refund within this timeframe.",
+      question: "WHAT SHOULD I INCLUDE IN MY MESSAGE?",
+      answer: "Describe the issue clearly and include the email address where you want to receive a reply. Never include passwords or payment card details.",
       icon: <RefreshCw className="w-5 h-5" />,
       category: 'policy'
     }
@@ -178,9 +178,7 @@ export default function FAQSection(): React.JSX.Element {
             <p className="text-gray-600 mb-6">
               Our support team is here to help you 24/7
             </p>
-            <button className="bg-primary text-white px-8 py-3 rounded-lg font-medium hover:bg-primary/90 transition-colors duration-200">
-              Contact Support
-            </button>
+            <a href="#contact" className="inline-flex bg-primary text-white px-8 py-3 rounded-lg font-medium hover:bg-primary/90 transition-colors duration-200">Contact Support</a>
           </div>
         </div>
       </div>

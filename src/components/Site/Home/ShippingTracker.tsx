@@ -43,8 +43,6 @@ export default function TrackingComponent() {
     }
   })
 
-  console.log(data);
-
   useEffect(() => {
     setFields(data?.form_fields as FormField[])
     

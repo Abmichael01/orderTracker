@@ -1,111 +1,25 @@
-import React, { useState } from 'react';
+import { Headphones, PackageSearch } from 'lucide-react';
 
 export default function Footer() {
-  const [email, setEmail] = useState<string>('');
-
-  const handleSubscribe = (): void => {
-    if (email) {
-      console.log('Subscribed with email:', email);
-      alert('Thank you for subscribing!');
-      setEmail('');
-    } else {
-      alert('Please enter your email address');
-    }
-  };
-
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setEmail(e.target.value);
-  };
-
   return (
-    <footer className="bg-gray-800 text-white py-16 px-4">
-      <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-          {/* About Us Section */}
-          <div>
-            <h3 className="text-lg font-bold mb-6 text-primary">
-              ABOUT US
-            </h3>
-            <p className="text-gray-300 leading-relaxed text-sm">
-              Welcome to MyCargoLane, your trusted partner in global shipping and logistics. 
-              Our mission is to provide efficient and reliable cargo delivery services tailored 
-              to your unique needs. With a commitment to excellence, we ensure that your 
-              shipments reach their destination securely and on time.
-            </p>
-          </div>
-
-          {/* Features Section */}
-          <div>
-            <h3 className="text-lg font-bold mb-6 text-primary">
-              FEATURES
-            </h3>
-            <ul className="space-y-3">
-              <li>
-                <a 
-                  href="#" 
-                  className="text-gray-300 hover:text-white transition-colors text-sm"
-                >
-                  About Us
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="#" 
-                  className="text-gray-300 hover:text-white transition-colors text-sm"
-                >
-                  Testimonials
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="#" 
-                  className="text-gray-300 hover:text-white transition-colors text-sm"
-                >
-                  Terms of Service
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="#" 
-                  className="text-gray-300 hover:text-white transition-colors text-sm"
-                >
-                  Privacy
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="#" 
-                  className="text-gray-300 hover:text-white transition-colors text-sm"
-                >
-                  Contact Us
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Newsletter Section */}
-          <div>
-            <h3 className="text-lg font-bold mb-6 text-primary">
-              SUBSCRIBE TO NEWSLETTER
-            </h3>
-            <div className="flex">
-              <input
-                type="email"
-                value={email}
-                onChange={handleEmailChange}
-                placeholder="Enter Email"
-                className="flex-1 px-4 py-3 text-gray-900 bg-white rounded-l-md focus:outline-none focus:ring-2 focus:ring-orange-500"
-              />
-              <button
-                onClick={handleSubscribe}
-                className="bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-r-md transition-colors font-medium"
-              >
-                Subscribe
-              </button>
-            </div>
-          </div>
+    <footer className="bg-[#091713] px-4 py-14 text-white">
+      <div className="mx-auto grid max-w-6xl gap-10 md:grid-cols-[1.3fr_0.7fr_1fr]">
+        <div>
+          <div className="flex items-center gap-3"><img src="/logo.png" alt="" className="size-9" /><p className="text-xl font-bold">ParcelFinda</p></div>
+          <p className="mt-5 max-w-md text-sm leading-7 text-white/55">Track parcel records with one ID and contact the right support team when a shipment needs attention.</p>
+        </div>
+        <div>
+          <p className="font-semibold text-emerald-300">Explore</p>
+          <div className="mt-5 space-y-3 text-sm text-white/60"><a className="block hover:text-white" href="/#home">Track a parcel</a><a className="block hover:text-white" href="/#faq">Help centre</a><a className="block hover:text-white" href="/#contact">Contact support</a></div>
+        </div>
+        <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
+          <Headphones className="size-6 text-emerald-300" />
+          <p className="mt-4 font-semibold">Need help with a parcel?</p>
+          <p className="mt-2 text-sm leading-6 text-white/50">Have your tracking ID ready so your message reaches the correct team.</p>
+          <a href="/#contact" className="mt-5 inline-flex items-center gap-2 rounded-xl bg-emerald-300 px-4 py-2.5 text-sm font-semibold text-[#091713]"><PackageSearch className="size-4" /> Contact support</a>
         </div>
       </div>
+      <p className="mx-auto mt-10 max-w-6xl border-t border-white/10 pt-6 text-xs text-white/35">© {new Date().getFullYear()} ParcelFinda. Tracking information is supplied by the record owner.</p>
     </footer>
   );
 }

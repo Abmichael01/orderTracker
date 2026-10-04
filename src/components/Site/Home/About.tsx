@@ -12,22 +12,21 @@ export default function AboutSection() {
             
             <div className="space-y-4 text-muted-foreground text-lg leading-relaxed">
               <p>
-                At MKLogis, we embark on a journey of excellence in shipping and logistics. 
-                Nestled far from ordinary, our commitment thrives in delivering unparalleled services.
+                ParcelFinda brings tracking details from your shipment record into one clear view.
+                Enter the tracking number you received to review the latest available status and route information.
               </p>
               
               <p>
-                With years of industry expertise and a global network of trusted partners, 
-                we transform complex logistics challenges into streamlined solutions that 
-                drive your business forward.
+                When a delivery needs attention, contact support with that same tracking ID.
+                Your message is automatically routed to the team responsible for the parcel.
               </p>
             </div>
 
             {/* Stats or Features */}
             <div className="grid grid-cols-2 gap-6 pt-8">
               <div className="text-center lg:text-left">
-                <div className="text-3xl font-bold text-primary mb-2">11+</div>
-                <div className="text-sm text-muted-foreground">Years Experience</div>
+                <div className="text-3xl font-bold text-primary mb-2">One ID</div>
+                <div className="text-sm text-muted-foreground">Tracking and support</div>
               </div>
               <div className="text-center lg:text-left">
                 <div className="text-3xl font-bold text-primary mb-2">24/7</div>
@@ -37,9 +36,7 @@ export default function AboutSection() {
 
             {/* CTA Button */}
             <div className="pt-6">
-              <button className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-3 rounded-lg font-semibold transition-colors">
-                Learn More About Us
-              </button>
+              <a href="#contact" className="inline-flex bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-3 rounded-lg font-semibold transition-colors">Contact parcel support</a>
             </div>
           </div>
 
@@ -48,7 +45,7 @@ export default function AboutSection() {
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
               <img 
                 src="/sea.jpg" 
-                alt="MKLogis team and operations" 
+                alt="Parcel shipment moving through a port"
                 className="w-full h-[400px] lg:h-[500px] object-cover"
               />
               
@@ -66,8 +63,8 @@ export default function AboutSection() {
               {/* Bottom stats card */}
               <div className="absolute bottom-6 right-6 bg-card/90 backdrop-blur-sm rounded-lg p-4 shadow-lg">
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-primary">500K+</div>
-                  <div className="text-xs text-muted-foreground">Shipments Delivered</div>
+                  <div className="text-2xl font-bold text-primary">Direct</div>
+                  <div className="text-xs text-muted-foreground">Support routing</div>
                 </div>
               </div>
             </div>

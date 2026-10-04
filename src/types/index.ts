@@ -35,3 +35,12 @@ export type PurchasedTemplate = {
   created_at: string; // ISO datetime string
   updated_at: string;
 };
+
+export type TrackingSupportPayload = {
+  tracking_id: string;
+  source: 'parcel_finda';
+  customer_name: string;
+  customer_email: string;
+  subject: string;
+  message: string;
+};

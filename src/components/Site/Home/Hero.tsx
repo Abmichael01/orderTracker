@@ -23,18 +23,19 @@ export default function Hero() {
             </p>
             
             {/* Tracking Form */}
-            <div className="flex flex-col sm:flex-row gap-0 max-w-md">
+            <form onSubmit={(event) => { event.preventDefault(); if (trackingCode.trim()) navigate(`/?trackingId=${encodeURIComponent(trackingCode.trim())}`); }} className="flex max-w-md flex-col gap-0 sm:flex-row">
               <input
+                required
                 type="text"
                 value={trackingCode}
                 onChange={(e) => setTrackingCode(e.target.value)}
                 placeholder="Enter tracking number..."
                 className="flex-1 px-4 py-3 text-gray-900 bg-white border-0 rounded-l-md sm:rounded-r-none rounded-r-md focus:outline-none focus:ring-2 focus:ring-white/50 placeholder-gray-500"
               />
-              <button onClick={() => navigate(`/?trackingId=${trackingCode}`)} className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 font-semibold rounded-r-md sm:rounded-l-none rounded-l-md transition-colors whitespace-nowrap">
+              <button type="submit" className="rounded-r-md rounded-l-md bg-[#0d1f1b] px-6 py-3 font-semibold whitespace-nowrap text-white transition-colors hover:bg-[#142f28] sm:rounded-l-none">
                 Track Now
               </button>
-            </div>
+            </form>
           </div>
         </div>
       </div>
