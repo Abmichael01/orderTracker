@@ -1,10 +1,11 @@
 import { useEffect, useState, type FormEvent } from 'react';
-import { CheckCircle2, Send } from 'lucide-react';
+import { CheckCircle2, LoaderCircle, MailCheck, Send } from 'lucide-react';
 import { toast } from 'sonner';
 
-import { submitTrackingSupport } from '@/api/apiEndpoints';
+import { confirmSupportEmailVerification, requestSupportEmailVerification, submitTrackingSupport } from '@/api/apiEndpoints';
 import SectionPadding from '../../../layouts/SectionPadding';
 import { rememberSupportSession } from '@/lib/supportSession';
+import type { SupportEmailVerificationChallenge } from '@/types';
 
 type ContactFormProps = {
   trackingId?: string;
@@ -22,7 +23,7 @@ function supportError(error: unknown) {
   if (typeof error === 'object' && error && 'response' in error) {
     const response = (error as { response?: { data?: Record<string, string | string[]> } }).response;
     const data = response?.data;
-    const detail = data?.tracking_id || data?.detail || data?.error;
+    const detail = data?.tracking_id || data?.verification_token || data?.detail || data?.error;
     if (Array.isArray(detail)) return detail[0];
     if (typeof detail === 'string') return detail;
   }
@@ -32,6 +33,11 @@ function supportError(error: unknown) {
 export default function ContactForm({ trackingId = '' }: ContactFormProps) {
   const [form, setForm] = useState({ ...EMPTY_FORM, trackingId });
   const [isSending, setIsSending] = useState(false);
+  const [isVerifying, setIsVerifying] = useState(false);
+  const [challenge, setChallenge] = useState<SupportEmailVerificationChallenge | null>(null);
+  const [verificationCode, setVerificationCode] = useState('');
+  const [verificationToken, setVerificationToken] = useState('');
+  const [verifiedEmail, setVerifiedEmail] = useState('');
   const [reference, setReference] = useState('');
 
   useEffect(() => {
@@ -40,15 +46,63 @@ export default function ContactForm({ trackingId = '' }: ContactFormProps) {
 
   const update = (field: keyof typeof form, value: string) => {
     setForm((current) => ({ ...current, [field]: value }));
+    if (field === 'trackingId' || field === 'email') {
+      setChallenge(null);
+      setVerificationCode('');
+      setVerificationToken('');
+      setVerifiedEmail('');
+    }
+  };
+
+  const requestVerification = async () => {
+    if (!form.trackingId.trim() || !form.email.trim()) {
+      toast.error('Enter your tracking ID and email address first.');
+      return;
+    }
+    setIsVerifying(true);
+    try {
+      const next = await requestSupportEmailVerification({
+        tracking_id: form.trackingId.trim(),
+        source: 'parcel_finda',
+        email: form.email.trim(),
+      });
+      setChallenge(next);
+      setVerificationCode('');
+      toast.success('Verification code sent');
+    } catch (error) {
+      toast.error(supportError(error));
+    } finally {
+      setIsVerifying(false);
+    }
+  };
+
+  const confirmVerification = async () => {
+    if (!challenge || verificationCode.length !== 4) return;
+    setIsVerifying(true);
+    try {
+      const grant = await confirmSupportEmailVerification(challenge.challenge_id, verificationCode);
+      setVerificationToken(grant.verification_token);
+      setVerifiedEmail(grant.email);
+      toast.success('Email verified');
+    } catch (error) {
+      toast.error(supportError(error));
+    } finally {
+      setIsVerifying(false);
+    }
   };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (!verificationToken) {
+      toast.error('Verify your email before sending the support request.');
+      return;
+    }
     setIsSending(true);
     try {
       const response = await submitTrackingSupport({
         tracking_id: form.trackingId.trim(),
         source: 'parcel_finda',
+        verification_token: verificationToken,
         customer_name: form.name.trim(),
         customer_email: form.email.trim(),
         subject: form.subject.trim(),
@@ -57,6 +111,10 @@ export default function ContactForm({ trackingId = '' }: ContactFormProps) {
       rememberSupportSession(response, form.trackingId.trim());
       setReference(response.id.slice(0, 8).toUpperCase());
       setForm((current) => ({ ...EMPTY_FORM, trackingId: current.trackingId }));
+      setChallenge(null);
+      setVerificationCode('');
+      setVerificationToken('');
+      setVerifiedEmail('');
       toast.success('Support request received');
     } catch (error) {
       toast.error(supportError(error));
@@ -97,13 +155,29 @@ export default function ContactForm({ trackingId = '' }: ContactFormProps) {
                     <input required type="email" value={form.email} onChange={(event) => update('email', event.target.value)} placeholder="you@example.com" className="mt-2 h-12 w-full rounded-lg border border-slate-300 bg-white px-4 text-sm outline-none transition focus:border-emerald-600 focus:ring-2 focus:ring-emerald-100" />
                 </label>
                 </div>
+                <div className="border-y border-slate-200 py-4">
+                  {verificationToken ? (
+                    <div className="flex items-center gap-3 text-sm text-slate-700"><CheckCircle2 className="size-5 text-emerald-600" /><span><strong className="font-medium">Email verified.</strong> Reply notifications will go to {verifiedEmail}.</span></div>
+                  ) : challenge ? (
+                    <div>
+                      <p className="text-sm font-medium">Enter the code sent to {challenge.email_hint}</p>
+                      <div className="mt-3 flex flex-col gap-2 sm:flex-row">
+                        <input inputMode="numeric" autoComplete="one-time-code" maxLength={4} value={verificationCode} onChange={(event) => setVerificationCode(event.target.value.replace(/\D/g, ''))} placeholder="0000" aria-label="Verification code" className="h-11 min-w-0 flex-1 rounded-lg border border-slate-300 px-3 text-center font-mono tracking-[0.3em] outline-none focus:border-emerald-600" />
+                        <button type="button" onClick={confirmVerification} disabled={isVerifying || verificationCode.length !== 4} className="inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-[#14231f] px-4 text-sm font-medium text-white disabled:opacity-50">{isVerifying ? <LoaderCircle className="size-4 animate-spin" /> : <MailCheck className="size-4" />} Verify code</button>
+                      </div>
+                      <button type="button" onClick={() => { setChallenge(null); setVerificationCode(''); }} className="mt-3 text-xs font-medium text-slate-500 hover:text-slate-800">Use a different email</button>
+                    </div>
+                  ) : (
+                    <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center"><div><p className="text-sm font-medium">Verify your email to continue</p><p className="mt-1 text-xs text-slate-500">This lets us notify you when support replies.</p></div><button type="button" onClick={requestVerification} disabled={isVerifying} className="inline-flex h-11 shrink-0 items-center justify-center gap-2 rounded-lg border border-slate-300 px-4 text-sm font-medium hover:border-slate-400 disabled:opacity-50">{isVerifying ? <LoaderCircle className="size-4 animate-spin" /> : <MailCheck className="size-4" />} Send code</button></div>
+                  )}
+                </div>
                 <label className="block text-sm font-semibold">What do you need help with?
                   <input required maxLength={160} value={form.subject} onChange={(event) => update('subject', event.target.value)} placeholder="Delivery status, address, parcel details…" className="mt-2 h-12 w-full rounded-lg border border-slate-300 bg-white px-4 text-sm outline-none transition focus:border-emerald-600 focus:ring-2 focus:ring-emerald-100" />
                 </label>
                 <label className="block text-sm font-semibold">Message
                   <textarea required maxLength={5000} rows={6} value={form.message} onChange={(event) => update('message', event.target.value)} placeholder="Describe the issue and include any useful details." className="mt-2 w-full resize-y rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm leading-6 outline-none transition focus:border-emerald-600 focus:ring-2 focus:ring-emerald-100" />
                 </label>
-                <button type="submit" disabled={isSending} className="flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-primary px-6 font-semibold text-primary-foreground transition hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto">
+                <button type="submit" disabled={isSending || !verificationToken} className="flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-primary px-6 font-semibold text-primary-foreground transition hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto">
                   <Send className="size-4" /> {isSending ? 'Sending…' : 'Send support request'}
                 </button>
               </div>
