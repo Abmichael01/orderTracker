@@ -4,6 +4,7 @@ import { toast } from 'sonner';
 
 import { submitTrackingSupport } from '@/api/apiEndpoints';
 import SectionPadding from '../../../layouts/SectionPadding';
+import { rememberSupportSession } from '@/lib/supportSession';
 
 type ContactFormProps = {
   trackingId?: string;
@@ -53,6 +54,7 @@ export default function ContactForm({ trackingId = '' }: ContactFormProps) {
         subject: form.subject.trim(),
         message: form.message.trim(),
       });
+      rememberSupportSession(response);
       setReference(response.id.slice(0, 8).toUpperCase());
       setForm((current) => ({ ...EMPTY_FORM, trackingId: current.trackingId }));
       toast.success('Support request received');

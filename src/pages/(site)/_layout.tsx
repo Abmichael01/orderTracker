@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import Navbar from '../../components/Site/Navbar'
 import Footer from '../../components/Site/Footer'
+import SupportWidget from '../../components/Site/SupportWidget'
 
 export default function SiteLayout() {
   const location = useLocation()
@@ -27,6 +28,7 @@ export default function SiteLayout() {
         <Outlet />
       </main>
       <Footer />
+      <SupportWidget />
     </div>
   )
 }
