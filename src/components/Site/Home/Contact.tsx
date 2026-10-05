@@ -54,7 +54,7 @@ export default function ContactForm({ trackingId = '' }: ContactFormProps) {
         subject: form.subject.trim(),
         message: form.message.trim(),
       });
-      rememberSupportSession(response);
+      rememberSupportSession(response, form.trackingId.trim());
       setReference(response.id.slice(0, 8).toUpperCase());
       setForm((current) => ({ ...EMPTY_FORM, trackingId: current.trackingId }));
       toast.success('Support request received');

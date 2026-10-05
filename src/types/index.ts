@@ -83,4 +83,6 @@ export type StoredSupportSession = {
   accessToken: string;
   channel: string;
   realtime: SupportRealtimeConfig;
+  trackingId?: string;
+  createdAt?: string;
 };
